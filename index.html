@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Troy Miguel | Web Developer</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <style>
+    :root {
+      --bg-color: #F9FAFB;
+      --text-color: #1F2937;
+      --accent-color: #374151;
+      --accent-hover: #1F2937;
+      --footer-bg: #ffffff;
+      --footer-text: #6B7280;
+      --border-color: #E5E7EB;
+    }
+
+    body.dark-mode {
+      --bg-color: #111827;
+      --text-color: #F9FAFB;
+      --accent-color: #D1D5DB;
+      --accent-hover: #F3F4F6;
+      --footer-bg: #1F2937;
+      --footer-text: #9CA3AF;
+      --border-color: #2C2C2C;
+    }
+
+    html, body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      border-bottom: 1px solid var(--border-color); /* Always visible */
+      background-color: transparent;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .navbar .nav-link,
+    .navbar .navbar-brand {
+      color: var(--text-color) !important;
+    }
+
+    .navbar .nav-link:hover {
+      color: var(--accent-color) !important;
+    }
+
+    .navbar.scrolled {
+      background-color: var(--bg-color) !important;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Hero */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 30px;
+      height: 100vh;
+      padding: 40px 20px;
+    }
+
+    @media (min-width: 768px) {
+      .hero {
+        flex-direction: row;
+        text-align: left;
+        gap: 60px;
+        max-width: 960px;
+        margin: auto;
+      }
+    }
+
+    .hero-img {
+      width: 100%;
+      max-width: 350px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-text h1 {
+      font-weight: 600;
+      font-size: 2.5rem;
+    }
+
+    .hero-text p {
+      font-size: 1.1rem;
+      max-width: 500px;
+    }
+
+    /* About */
+    .about-section {
+      background-color: var(--accent-color);
+      color: white;
+      padding: 100px 20px;
+    }
+
+    .about-section h2 {
+      font-weight: 600;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .about-section p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      max-width: 800px;
+      margin: 0 auto 20px auto;
+    }
+
+    .about-icons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-top: 40px;
+    }
+
+    .about-icon-box {
+      text-align: center;
+      color: white;
+    }
+
+    .about-icon-box i {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    /* Projects */
+    .projects-section {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      padding: 80px 20px;
+    }
+
+    .projects-section h2 {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 60px;
+      font-weight: 600;
+    }
+
+    .card {
+      transition: transform 0.4s ease, opacity 0.4s ease;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .card.animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--footer-bg);
+      text-align: center;
+      padding: 20px;
+      color: var(--footer-text);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    /* Dark Mode Toggle */
+    .dark-mode-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: var(--footer-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 50px;
+      padding: 6px 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dark-mode-toggle label {
+      margin-bottom: 0;
+      color: var(--text-color);
+      font-size: 0.9rem;
+    }
+
+    /* Animations */
+    .fade-in-left, .fade-in-right {
+      opacity: 0;
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in-left {
+      transform: translateX(-40px);
+    }
+
+    .fade-in-right {
+      transform: translateX(40px);
+    }
+
+    .fade-in-left.animate,
+    .fade-in-right.animate {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg px-4">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold" href="#">Troy</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav gap-3">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#projects">Projects</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">About</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <img src="MAN_5625.JPG" alt="Troy Miguel" class="hero-img fade-in-left">
+    <div class="hero-text fade-in-right">
+      <h1>Hello, I'm <span style="color: var(--accent-color);">Troy Miguel</span></h1>
+      <p>A passionate IT graduate and aspiring Web Developer focused on creating minimal, responsive, and creative websites that bring ideas to life.</p>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about-section">
+    <h2>About Me</h2>
+    <p>
+      I am Troy Miguel, an Information Technology graduate with a strong interest in front-end development and UI/UX design. I specialize in building responsive websites using modern technologies like HTML, CSS, JavaScript, and Bootstrap.
+    </p>
+    <p>
+      My passion lies in turning creative ideas into functional, user-friendly digital products. I'm constantly learning and exploring new tools and frameworks to stay up to date with the fast-paced tech industry.
+    </p>
+    <div class="about-icons">
+      <div class="about-icon-box">
+        <i class="bi bi-code-slash"></i>
+        <p>HTML, CSS, JS</p>
+      </div>
+      <div class="about-icon-box">
+        <i class="bi bi-brush"></i>
+        <p>UI/UX Design</p>
+      </div>
+      <div class="about-icon-box">
+        <i class="bi bi-terminal"></i>
+        <p>PHP & Bootstrap</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="projects-section">
+    <div class="container">
+      <h2>Projects</h2>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm border-0">
+            <img src="GRYN.jpg" class="card-img-top" alt="Project 1">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title fw-bold">Delivery Management System</h5>
+              <p class="card-text">Developed for Gryn Wasabi Sushi Bar as a final thesis project. Features 7 integrated modules to streamline operations and enhance customer service.</p>
+              <a href="https://gryn-wasabi-sushi-bar-test.onrender.com/SpecificUserHomePage.html" class="btn btn-outline-dark mt-auto" target="_blank" rel="noopener noreferrer">View Project File</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm border-0">
+            <img src="image.jpg" class="card-img-top" alt="Project 2">
+            <div class="card-body">
+              <h5 class="card-title fw-bold">Company Website</h5>
+              <p class="card-text">Designed and developed a responsive website for Lion Gate Builders during internship using HTML, CSS, JavaScript, PHP, and Bootstrap.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm border-0">
+            <img src="image/project3.jpg" class="card-img-top" alt="Project 3">
+            <div class="card-body">
+              <h5 class="card-title fw-bold">Portfolio Website</h5>
+              <p class="card-text">Personal portfolio showcasing skills, projects, and experience. Built using modern front-end tools with dark/light mode toggle.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Troy Miguel • Designed with 💻 and creativity
+  </footer>
+
+  <!-- Dark Mode Toggle -->
+  <div class="dark-mode-toggle form-check form-switch">
+    <input class="form-check-input" type="checkbox" id="darkModeToggle" />
+    <label for="darkModeToggle">Dark Mode</label>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const toggle = document.getElementById('darkModeToggle');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (localStorage.getItem('darkMode') === 'true' || (!localStorage.getItem('darkMode') && prefersDark)) {
+      document.body.classList.add('dark-mode');
+      toggle.checked = true;
+    }
+    toggle.addEventListener('change', () => {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', toggle.checked);
+    });
+
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    const cards = document.querySelectorAll('.card');
+    const heroItems = document.querySelectorAll('.fade-in-left, .fade-in-right');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    cards.forEach(card => observer.observe(card));
+    heroItems.forEach(item => observer.observe(item));
+  </script>
+</body>
+</html>
